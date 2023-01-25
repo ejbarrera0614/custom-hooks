@@ -33,14 +33,11 @@ export const useForm = (initialForm = {}) => {
         const resultValidation = Object.keys(initialForm).reduce((accum, propForm) => {
             const { value: valuePopForm, validations } = formState[propForm]
             formState[propForm].errors = []
-            console.group(propForm)
             Object.keys(validations).forEach(nameValidation => {
                 const valueValidation = validations[nameValidation]
                 const resultError = functionValidations[nameValidation](valuePopForm, valueValidation)
                 if (resultError) formState[propForm].errors.push(resultError)
-                console.log(nameValidation, valueValidation, valuePopForm, resultError);
             });
-            console.groupEnd()
             return accum
         }, false)
         setFormState({ ...formState })
